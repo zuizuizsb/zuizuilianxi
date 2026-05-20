@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理成长协会 · free talk 活动存档</title>
+    <style>
+        :root {
+            --bg: #fdf7f1;
+            --card-bg: #ffffff;
+            --text-primary: #4a3f35;
+            --text-secondary: #9b8c7d;
+            --text-muted: #b8a99a;
+            --border: #e8ddd0;
+            --border-light: #f0e8dc;
+            --accent: #c97d60;
+            --accent-hover: #b86b4f;
+            --accent-light: #fdf0ea;
+            --edit: #8a9d7e;
+            --edit-hover: #7a8d6e;
+            --edit-light: #f0f5ed;
+            --delete: #d4a09a;
+            --delete-hover: #c48b84;
+            --delete-light: #fdf5f3;
+            --shadow-sm: 0 1px 3px rgba(74, 63, 53, 0.06), 0 1px 2px rgba(74, 63, 53, 0.04);
+            --shadow-md: 0 4px 16px rgba(74, 63, 53, 0.08), 0 2px 6px rgba(74, 63, 53, 0.04);
+            --shadow-lg: 0 8px 28px rgba(74, 63, 53, 0.12), 0 4px 10px rgba(74, 63, 53, 0.06);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-serif: 'Georgia', 'Noto Serif SC', 'STSong', 'Songti SC', 'SimSun', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image:
+                radial-gradient(ellipse at 20% 10%, rgba(201, 125, 96, 0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 85%, rgba(138, 157, 126, 0.04) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, rgba(180, 160, 140, 0.02) 0%, transparent 70%);
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 28px 20px 48px;
+        }
+
+        /* 页头 */
+        .header {
+            text-align: center;
+            padding: 40px 20px 28px;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            font-weight: 600;
+            color: #4a3f35;
+            letter-spacing: 0.03em;
+            margin-bottom: 6px;
+        }
+
+        .header .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            letter-spacing: 0.04em;
+        }
+
+        .header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #d4a09a, #c97d60, #8a9d7e);
+            border-radius: 2px;
+            margin: 18px auto 0;
+            opacity: 0.7;
+        }
+
+        /* 表单卡片 */
+        .form-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: box-shadow var(--transition);
+            position: relative;
+        }
+
+        .form-card.editing {
+            border-color: #d4b896;
+            box-shadow: var(--shadow-lg), 0 0 0 3px rgba(201, 125, 96, 0.08);
+            background: #fffdfb;
+        }
+
+        .form-card .form-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .form-card.editing .form-badge {
+            color: #8a6d5e;
+            background: #fdf3ec;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b5d50;
+            letter-spacing: 0.02em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: #fefcf9;
+            color: var(--text-primary);
+            transition: all var(--transition);
+            outline: none;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #c9a78b;
+            box-shadow: 0 0 0 3px rgba(201, 125, 96, 0.07);
+            background: #fff;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            max-height: 360px;
+        }
+
+        /* 图片上传区域 */
+        .image-upload-area {
+            margin-top: 12px;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            background: #fefcf9;
+            transition: all var(--transition);
+        }
+
+        .image-upload-area:hover {
+            border-color: #c9a78b;
+            background: #fffdfb;
+        }
+
+        .image-upload-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b5d50;
+            cursor: pointer;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .image-upload-label:hover {
+            color: var(--accent);
+        }
+
+        .image-preview-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .image-preview-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+            background: #f5f0e8;
+            flex-shrink: 0;
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-preview-item .remove-img-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.15s;
+            padding: 0;
+        }
+
+        .image-preview-item .remove-img-btn:hover {
+            background: rgba(180, 60, 60, 0.9);
+        }
+
+        .upload-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        /* 按钮 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 11px 22px;
+            border-radius: 28px;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+            min-height: 44px;
+            text-decoration: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(201, 125, 96, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 16px rgba(201, 125, 96, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #6b5d50;
+            border: 1.5px solid #d4c8b8;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: #fdf8f4;
+            border-color: #c4b5a2;
+            color: #4a3f35;
+        }
+
+        .btn-sm {
+            font-size: 0.8rem;
+            padding: 7px 15px;
+            min-height: 34px;
+            border-radius: 22px;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-edit {
+            background: var(--edit-light);
+            color: #5a6b4f;
+            border: 1px solid #d5e0cc;
+        }
+
+        .btn-edit:hover {
+            background: #e4f0da;
+            border-color: #b8c9a8;
+            color: #3d4d34;
+        }
+
+        .btn-delete {
+            background: var(--delete-light);
+            color: #8b5a52;
+            border: 1px solid #f0d8d4;
+        }
+
+        .btn-delete:hover {
+            background: #fde8e4;
+            border-color: #e0c0b8;
+            color: #6b3d36;
+        }
+
+        .btn-bottom {
+            background: #faf6f0;
+            color: #6b5d50;
+            border: 1.5px solid #e0d6c8;
+            box-shadow: var(--shadow-sm);
+            font-weight: 500;
+        }
+
+        .btn-bottom:hover {
+            background: #f5efe4;
+            border-color: #d0c4b2;
+            color: #4a3f35;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 活动列表 */
+        .activities-section {
+            margin-top: 4px;
+        }
+
+        .activities-count {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            letter-spacing: 0.03em;
+            text-align: center;
+        }
+
+        .activity-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid transparent;
+            transition: all var(--transition);
+            position: relative;
+            cursor: default;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: #ece3d6;
+        }
+
+        .activity-card.editing-highlight {
+            border-color: #d4b896 !important;
+            box-shadow: var(--shadow-md), 0 0 0 3px rgba(201, 125, 96, 0.06) !important;
+            background: #fffdfb !important;
+        }
+
+        .activity-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .activity-card .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #3d342a;
+            letter-spacing: 0.02em;
+            flex: 1;
+            min-width: 200px;
+            line-height: 1.4;
+        }
+
+        .activity-card .card-date {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            padding: 4px 10px;
+            background: #faf7f2;
+            border-radius: 14px;
+            letter-spacing: 0.03em;
+            flex-shrink: 0;
+        }
+
+        .activity-card .card-content {
+            font-size: 0.93rem;
+            color: #5c5044;
+            line-height: 1.75;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: 14px;
+        }
+
+        .activity-card .card-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .activity-card .card-images img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .activity-card .card-images img:hover {
+            transform: scale(1.05);
+            border-color: #c9a78b;
+        }
+
+        .activity-card .card-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-muted);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 56px;
+            display: block;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+            line-height: 1.6;
+        }
+
+        /* 底部 */
+        .bottom-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #3d342a;
+            color: #fdf7f1;
+            padding: 12px 24px;
+            border-radius: 28px;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            background: #5a6b4f;
+            color: #fff;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px 12px 36px;
+            }
+
+            .header {
+                padding: 24px 12px 18px;
+            }
+
+            .header h1 {
+                font-size: 1.35rem;
+            }
+
+            .header .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .form-card {
+                padding: 18px 16px;
+                border-radius: var(--radius);
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-group {
+                min-width: 100%;
+            }
+
+            .btn {
+                font-size: 0.88rem;
+                padding: 10px 18px;
+                min-height: 42px;
+                border-radius: 24px;
+            }
+
+            .btn-sm {
+                font-size: 0.78rem;
+                padding: 6px 13px;
+                min-height: 32px;
+                border-radius: 20px;
+            }
+
+            .activity-card {
+                padding: 16px 16px;
+                border-radius: var(--radius-sm);
+            }
+
+            .activity-card .card-title {
+                font-size: 1.05rem;
+            }
+
+            .activity-card .card-content {
+                font-size: 0.88rem;
+            }
+
+            .activity-card .card-header {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .image-preview-item {
+                width: 64px;
+                height: 64px;
+            }
+
+            .activity-card .card-images img {
+                width: 56px;
+                height: 56px;
+            }
+
+            .bottom-actions {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .form-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+            }
+
+            .activity-card .card-actions {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .activity-card .card-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页头 -->
+        <header class="header">
+            <span class="header-icon">🌿</span>
+            <h1>心理成长协会 · free talk 活动存档</h1>
+            <p class="subtitle">记录每一次真诚的分享</p>
+        </header>
+
+        <!-- 表单 -->
+        <div class="form-card" id="formCard">
+            <span class="form-badge" id="formBadge">✨ 新增活动</span>
+            <form id="activityForm" autocomplete="off">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="titleInput">活动标题</label>
+                        <input type="text" id="titleInput" placeholder="例如：如何应对社交焦虑" maxlength="120" required>
+                    </div>
+                    <div class="form-group" style="flex: 0 0 auto; min-width: 150px;">
+                        <label for="dateInput">活动日期</label>
+                        <input type="date" id="dateInput" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contentInput">详细内容</label>
+                    <textarea id="contentInput" placeholder="记录下大家讨论的话题、分享的故事、感受到的氛围……" maxlength="5000" required></textarea>
+                </div>
+
+                <!-- 图片上传区域 -->
+                <div class="image-upload-area">
+                    <label class="image-upload-label" for="imageFileInput">
+                        <span>🖼️ 添加图片</span>
+                        <span style="font-weight:400;font-size:0.8rem;">（可多选，单张≤2MB）</span>
+                    </label>
+                    <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/gif,image/webp" multiple style="display:none;">
+                    <div class="image-preview-grid" id="imagePreviewGrid"></div>
+                    <p class="upload-hint">📌 图片将保存在浏览器本地，建议使用压缩后的小图（每张<200KB更佳）</p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">💾 保存活动</button>
+                    <button type="button" class="btn btn-outline" id="cancelEditBtn" style="display: none;">✕ 取消编辑</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 活动列表 -->
+        <div class="activities-section" id="activitiesSection">
+            <p class="activities-count" id="activitiesCount"></p>
+            <div id="activitiesList"></div>
+        </div>
+
+        <!-- 底部操作 -->
+        <div class="bottom-actions">
+            <button type="button" class="btn btn-bottom" id="exportBtn">📥 导出数据</button>
+            <button type="button" class="btn btn-bottom" id="importBtn">📤 导入数据</button>
+        </div>
+        <input type="file" id="importFileInput" accept=".json" style="display: none;">
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function() {
+            // DOM 引用
+            const formCard = document.getElementById('formCard');
+            const formBadge = document.getElementById('formBadge');
+            const activityForm = document.getElementById('activityForm');
+            const titleInput = document.getElementById('titleInput');
+            const dateInput = document.getElementById('dateInput');
+            const contentInput = document.getElementById('contentInput');
+            const imageFileInput = document.getElementById('imageFileInput');
+            const imagePreviewGrid = document.getElementById('imagePreviewGrid');
+            const submitBtn = document.getElementById('submitBtn');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const activitiesList = document.getElementById('activitiesList');
+            const activitiesCount = document.getElementById('activitiesCount');
+            const exportBtn = document.getElementById('exportBtn');
+            const importBtn = document.getElementById('importBtn');
+            const importFileInput = document.getElementById('importFileInput');
+            const toast = document.getElementById('toast');
+
+            const STORAGE_KEY = 'freetalk_activities';
+            const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB
+
+            let editingId = null;
+            let currentImages = []; // 存储当前表单的图片数据（base64字符串数组）
+            let toastTimer = null;
+
+            // 工具函数
+            function getTodayStr() {
+                const d = new Date();
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            function showToast(message, type = '') {
+                if (toastTimer) clearTimeout(toastTimer);
+                toast.textContent = message;
+                toast.className = 'toast ' + type + ' show';
+                toastTimer = setTimeout(() => {
+                    toast.className = 'toast';
+                    toastTimer = null;
+                }, 2200);
+            }
+
+            function loadActivities() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (raw) {
+                        const data = JSON.parse(raw);
+                        if (Array.isArray(data) && data.length > 0) {
+                            return data;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('读取localStorage失败，使用默认数据', e);
+                }
+                return getDefaultActivities();
+            }
+
+            function getDefaultActivities() {
+                return [
+                    {
+                        id: 2,
+                        title: '自我关怀的力量',
+                        date: '2026-05-15',
+                        content: '通过书写练习，每个人写下了三件今天对自己温柔的小事，氛围很感动。',
+                        images: []
+                    },
+                    {
+                        id: 1,
+                        title: '如何应对社交焦虑',
+                        date: '2026-05-10',
+                        content: '大家讨论了正念练习、小步骤暴露法，有成员分享了自己从害怕发言到主动主持的故事。',
+                        images: []
+                    }
+                ];
+            }
+
+            function saveActivities(activities) {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
+                } catch (e) {
+                    console.error('保存失败', e);
+                    showToast('⚠️ 存储空间不足，请清理旧数据或导出备份', '');
+                }
+            }
+
+            function sortActivities(activities) {
+                return [...activities].sort((a, b) => {
+                    if (a.date !== b.date) return b.date.localeCompare(a.date);
+                    return b.id - a.id;
+                });
+            }
+
+            // 图片预览渲染
+            function renderImagePreviews(images) {
+                imagePreviewGrid.innerHTML = '';
+                images.forEach((imgData, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'image-preview-item';
+                    item.innerHTML = `
+                        <img src="${imgData}" alt="预览图">
+                        <button type="button" class="remove-img-btn" data-index="${index}" title="移除图片">×</button>
+                    `;
+                    imagePreviewGrid.appendChild(item);
+                });
+
+                // 绑定删除事件
+                imagePreviewGrid.querySelectorAll('.remove-img-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const idx = parseInt(this.getAttribute('data-index'), 10);
+                        currentImages.splice(idx, 1);
+                        renderImagePreviews(currentImages);
+                    });
+                });
+            }
+
+            function clearImagePreviews() {
+                currentImages = [];
+                renderImagePreviews(currentImages);
+                imageFileInput.value = '';
+            }
+
+            // 读取文件并转为 base64
+            function handleImageFiles(files) {
+                const validFiles = Array.from(files).filter(file => {
+                    if (!file.type.startsWith('image/')) {
+                        showToast('⚠️ 仅支持图片文件', '');
+                        return false;
+                    }
+                    if (file.size > MAX_IMAGE_SIZE) {
+                        showToast(`⚠️ 图片“${file.name}”超过2MB，已跳过`, '');
+                        return false;
+                    }
+                    return true;
+                });
+
+                if (validFiles.length === 0) return;
+
+                let loaded = 0;
+                const newImages = [];
+                validFiles.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        newImages.push(e.target.result);
+                        loaded++;
+                        if (loaded === validFiles.length) {
+                            currentImages = [...currentImages, ...newImages];
+                            renderImagePreviews(currentImages);
+                            imageFileInput.value = '';
+                        }
+                    };
+                    reader.onerror = function() {
+                        loaded++;
+                        showToast('⚠️ 读取图片失败', '');
+                        if (loaded === validFiles.length) {
+                            currentImages = [...currentImages, ...newImages];
+                            renderImagePreviews(currentImages);
+                            imageFileInput.value = '';
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            // 表单操作
+            function resetForm() {
+                titleInput.value = '';
+                dateInput.value = getTodayStr();
+                contentInput.value = '';
+                clearImagePreviews();
+                editingId = null;
+                submitBtn.innerHTML = '💾 保存活动';
+                cancelEditBtn.style.display = 'none';
+                formCard.classList.remove('editing');
+                formBadge.textContent = '✨ 新增活动';
+                titleInput.focus();
+            }
+
+            function fillFormForEdit(activity) {
+                titleInput.value = activity.title;
+                dateInput.value = activity.date;
+                contentInput.value = activity.content;
+                currentImages = Array.isArray(activity.images) ? [...activity.images] : [];
+                renderImagePreviews(currentImages);
+                editingId = activity.id;
+                submitBtn.innerHTML = '✅ 更新活动';
+                cancelEditBtn.style.display = 'inline-flex';
+                formCard.classList.add('editing');
+                formBadge.textContent = '✏️ 编辑中';
+                formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                titleInput.focus();
+            }
+
+            function getFormData() {
+                return {
+                    title: titleInput.value.trim(),
+                    date: dateInput.value,
+                    content: contentInput.value.trim(),
+                    images: [...currentImages],
+                };
+            }
+
+            function validateForm(data) {
+                if (!data.title) { showToast('⚠️ 请输入活动标题', ''); titleInput.focus(); return false; }
+                if (!data.date) { showToast('⚠️ 请选择活动日期', ''); dateInput.focus(); return false; }
+                if (!data.content) { showToast('⚠️ 请输入详细内容', ''); contentInput.focus(); return false; }
+                return true;
+            }
+
+            function handleSubmit(e) {
+                e.preventDefault();
+                const formData = getFormData();
+                if (!validateForm(formData)) return;
+
+                let activities = loadActivities();
+
+                if (editingId !== null) {
+                    const index = activities.findIndex(a => a.id === editingId);
+                    if (index !== -1) {
+                        activities[index].title = formData.title;
+                        activities[index].date = formData.date;
+                        activities[index].content = formData.content;
+                        activities[index].images = formData.images;
+                    }
+                    showToast('✅ 活动已更新', 'success');
+                } else {
+                    const newActivity = {
+                        id: Date.now(),
+                        title: formData.title,
+                        date: formData.date,
+                        content: formData.content,
+                        images: formData.images,
+                    };
+                    activities.push(newActivity);
+                    showToast('🎉 活动已保存', 'success');
+                }
+
+                saveActivities(activities);
+                resetForm();
+                renderActivities(activities);
+            }
+
+            function handleEdit(activityId) {
+                const activities = loadActivities();
+                const activity = activities.find(a => a.id === activityId);
+                if (activity) {
+                    fillFormForEdit(activity);
+                    renderActivities(activities);
+                    formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            function handleDelete(activityId) {
+                const activities = loadActivities();
+                const activity = activities.find(a => a.id === activityId);
+                if (!activity) return;
+                const confirmed = confirm(`确定删除这条活动吗？\n\n"${activity.title}"\n日期：${activity.date}\n\n此操作不可撤销。`);
+                if (!confirmed) return;
+
+                const updatedActivities = activities.filter(a => a.id !== activityId);
+                if (editingId === activityId) resetForm();
+                saveActivities(updatedActivities);
+                renderActivities(updatedActivities);
+                showToast('🗑 活动已删除', '');
+            }
+
+            function handleCancelEdit() {
+                resetForm();
+                const activities = loadActivities();
+                renderActivities(activities);
+                formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // 渲染活动列表
+            function renderActivities(activities) {
+                const sorted = sortActivities(activities);
+                if (sorted.length === 0) {
+                    activitiesCount.textContent = '';
+                    activitiesList.innerHTML = `
+                        <div class="empty-state">
+                            <span class="empty-icon">📝</span>
+                            <p>暂无活动，写一个你的 first free talk 吧</p>
+                        </div>`;
+                } else {
+                    activitiesCount.textContent = `共 ${sorted.length} 条记录`;
+                    activitiesList.innerHTML = sorted.map(activity => {
+                        const isEditing = editingId === activity.id;
+                        const cardClass = isEditing ? 'activity-card editing-highlight' : 'activity-card';
+                        const imagesHtml = (Array.isArray(activity.images) && activity.images.length > 0) ?
+                            `<div class="card-images">${activity.images.map(img => `<img src="${img}" alt="活动图片" loading="lazy" onclick="window.open(this.src)">`).join('')}</div>` :
+                            '';
+                        return `
+                            <div class="${cardClass}" data-id="${activity.id}">
+                                <div class="card-header">
+                                    <span class="card-title">${escapeHtml(activity.title)}</span>
+                                    <span class="card-date">📅 ${escapeHtml(activity.date)}</span>
+                                </div>
+                                <div class="card-content">${escapeHtml(activity.content)}</div>
+                                ${imagesHtml}
+                                <div class="card-actions">
+                                    <button type="button" class="btn btn-sm btn-edit" data-action="edit" data-id="${activity.id}">✏️ 编辑</button>
+                                    <button type="button" class="btn btn-sm btn-delete" data-action="delete" data-id="${activity.id}">🗑 删除</button>
+                                </div>
+                            </div>`;
+                    }).join('');
+                }
+            }
+
+            function escapeHtml(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            // 导入导出
+            function handleExport() {
+                const activities = loadActivities();
+                if (activities.length === 0) { showToast('📭 没有数据可导出', ''); return; }
+                const sorted = sortActivities(activities);
+                const jsonStr = JSON.stringify(sorted, null, 2);
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `free-talk-存档-${getTodayStr()}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast(`📥 已导出 ${sorted.length} 条活动`, 'success');
+            }
+
+            function handleImport(file) {
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (!Array.isArray(data)) throw new Error('数据格式不正确：需要JSON数组');
+                        for (const item of data) {
+                            if (!item.id || !item.title || !item.date || !item.content) {
+                                throw new Error('每条记录需包含 id、title、date、content');
+                            }
+                        }
+                        const currentActivities = loadActivities();
+                        const confirmed = confirm(`即将导入 ${data.length} 条活动记录。\n当前有 ${currentActivities.length} 条。\n导入将替换所有现有数据，确定继续？`);
+                        if (!confirmed) return;
+                        saveActivities(data);
+                        if (editingId !== null && !data.some(a => a.id === editingId)) resetForm();
+                        renderActivities(data);
+                        showToast(`📤 成功导入 ${data.length} 条活动`, 'success');
+                    } catch (err) {
+                        showToast('⚠️ 导入失败：' + err.message, '');
+                    }
+                };
+                reader.onerror = () => showToast('⚠️ 文件读取失败', '');
+                reader.readAsText(file);
+                importFileInput.value = '';
+            }
+
+            // 事件绑定
+            activityForm.addEventListener('submit', handleSubmit);
+            cancelEditBtn.addEventListener('click', handleCancelEdit);
+            imageFileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleImageFiles(e.target.files);
+                }
+            });
+
+            activitiesList.addEventListener('click', function(e) {
+                const btn = e.target.closest('button[data-action]');
+                if (!btn) return;
+                const action = btn.getAttribute('data-action');
+                const activityId = parseInt(btn.getAttribute('data-id'), 10);
+                if (action === 'edit') handleEdit(activityId);
+                else if (action === 'delete') handleDelete(activityId);
+            });
+
+            exportBtn.addEventListener('click', handleExport);
+            importBtn.addEventListener('click', () => importFileInput.click());
+            importFileInput.addEventListener('change', function(e) {
+                if (e.target.files[0]) handleImport(e.target.files[0]);
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && editingId !== null && document.activeElement !== contentInput) {
+                    e.preventDefault();
+                    handleCancelEdit();
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    activityForm.dispatchEvent(new Event('submit', { cancelable: true }));
+                }
+            });
+
+            // 初始化
+            function init() {
+                const activities = loadActivities();
+                if (!localStorage.getItem(STORAGE_KEY)) saveActivities(activities);
+                dateInput.value = getTodayStr();
+                resetForm();
+                renderActivities(activities);
+                setTimeout(() => titleInput.focus(), 300);
+            }
+
+            init();
+            console.log('🌿 心理成长协会 · free talk 活动存档（图片版）已就绪');
+        })();
+    </script>
+</body>
+</html>
